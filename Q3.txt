@@ -1,0 +1,82 @@
+(a)
+In ABCD, 4 colors are right and two of them are in correct positions.
+In ABEF, only 2 white pegs means E and F are not in the answer.
+So A and B are correct colors but in wrong positions.
+Since ABCD has 2 red pegs and A, B are both wrong, C and D must be correct.
+The only way is to swap A and B.
+Answer: BACD
+Verification:
+  BACD vs ABCD: 2 red, 2 white
+  BACD vs ABEF: 2 white
+
+
+(b)
+first guess: ABCD, s1 = white pegs number + red pegs number
+second guess: CDEF, s2 = white pegs number + red pegs number
+cnt = s1 + s2 - 4 = number of CD in correct answer 
+If cnt = 0:
+  The correct numbers are ABEF, guesses = 2
+Elif cnt = 1:
+  One of AB or EF must be fully in the answer.
+  If AB are both in: guess ACEF (A must be in, EF has one).
+    s3 = 3 means C is in, so answer is ABC + (E or F).
+    s3 = 2 means D is in, so answer is ABD + (E or F).
+    Then guess one more to determine E or F.
+  The case when EF are both in is symmetric (guess ABCE instead).
+  guesses = 4
+Elif cnt = 2:
+  CD in the answer, s1 >= 2:
+    if s1 = 2:
+      CDEF is answer, guesses = 2
+    elif s1 = 3:
+      Guess BCDE, s3 = white pegs number + red pegs number
+      If s3 = 2:
+        ACDF is answer, guesses = 3
+      Elif s3 = 3:
+        Guess ACDE, s4 = white pegs number + red pegs number
+        If s4 = 2:
+          BCDF is answer, guesses = 4
+        Elif s4 = 4:
+          ACDE is answer, guesses = 4
+      Elif s3 = 4:
+        BCDE is answer, guesses = 3
+    elif s1 = 4:
+      ABCD is answer, guesses 2
+Maximum guesses = 4, so n = 4.
+
+(c)
+From (b), we can find the 4 colors in at most 4 guesses.
+Then we need at most 6 more guesses to find their positions.
+
+Assume the correct colors are A, B, C, D:
+
+Step 1: Guess ABCD, record red pegs = r1
+Step 2: Guess BACD (swap A and B), record red pegs = r2
+
+Case 1: r1 = r2 (abs(r2 - r1) = 0)
+  A and B are both wrong in positions 1 and 2, so they must be in positions 3 and 4.
+  Step 3: Guess CDAB, record r3
+  Step 4: Guess CDBA, record r4
+  The one with more red pegs is correct.
+  Total: 4 + 4 = 8 <= 10
+
+Case 2: abs(r2 - r1) = 2
+  Swapping changed 2 red pegs, so A and B should be in positions 1 and 2.
+  The guess with more red pegs (ABCD or BACD) tells us the order of A and B.
+  Similarly, guess ABDC to determine order of C and D.
+  Total: 4 + 3 = 7 <= 10
+
+Case 3: abs(r2 - r1) = 1
+  One of A or B is in the right position among 1 and 2.
+  Step 3: Take the better guess (say ABCD), replace B with E: guess AECD.
+    If red pegs decrease, B was correct. Otherwise, A is correct.
+    Assume A is in position 1.
+  Step 4: Guess ADCE to check if D is in position 2.
+    If red = 2, then D is in position 2. Otherwise, C is in position 2.
+    Assume C is in position 2.
+  Step 5: Guess ACBD.
+    If red = 4, done. Otherwise, answer is ACDB.
+  Total: 4 + 5 = 9 <= 10
+
+Maximum m = 9 <= 10.
+

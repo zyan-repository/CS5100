@@ -1,0 +1,52 @@
+(a) Skytrain shortest path
+
+Initial State:
+Currently at station X.
+
+Actions:
+Move to an adjacent station via a connecting line.
+
+Transition Model:
+After taking a line, the current station changes to the next station on that line.
+
+Goal Test:
+Check if the current station is Y.
+
+Path Cost:
+The total travel time.
+
+
+(b) Rubik's Cube
+
+Initial State:
+The current configuration of the jumbled Rubik's Cube.
+
+Actions:
+Rotate any face of the cube by 90°, 180°, or 270°.
+
+Transition Model:
+After a rotation, the cube transitions to a new configuration.
+
+Goal Test:
+Each face of the cube has a single color.
+
+Path Cost:
+The total number of rotations.
+
+
+(c) Sudoku
+
+Initial State:
+The partially filled 9×9 grid.
+
+Actions:
+Fill a number (1-9) into an empty cell.
+
+Transition Model:
+An empty cell becomes filled with a number.
+
+Goal Test:
+Every row, column, and 3×3 box contains the numbers 1-9 without repetition.
+
+Path Cost:
+The number of cells filled.

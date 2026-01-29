@@ -1,0 +1,63 @@
+(a)
+For h1, see Q5_a_h1.jpg
+For h2, see Q5_a_h2.jpg
+
+Optimal solution (8 moves):
+  1. Move 6 right
+  2. Move 8 right
+  3. Move 7 down
+  4. Move 4 down
+  5. Move 1 left
+  6. Move 2 up
+  7. Move 5 left
+  8. Move 6 up
+
+(b)
+h1:
+  admissible:
+    Each misplaced tile needs at least 1 move to the correct place.
+    So actual cost h*(n) >= h1.
+  consistent:
+    Every step's cost is 1. 
+    At most one tile becomes correct or incorrect after moving.
+    So, h1(n) - h1(n') <= 1 -> h1(n) <= 1 + h1(n'), n is the old state and n' is new state, 1 is cost.
+
+h2:
+  admissible:
+    Each misplaced tile needs at least Manhattan distance to reach its correct place.
+    So actual cost h*(n) >= h2.
+  consistent:
+    Every step's cost is 1. 
+    Each move changes one tile's Manhattan distance by at most 1.
+    So, h2(n) - h2(n') <= 1 -> h2(n) <= 1 + h2(n'), n is the old state and n' is new state, 1 is cost.
+
+Comparison:
+  h2 >= h1 for all states (Manhattan distance >= 1 for each misplaced tile).
+  A larger heuristic provides more information and expands fewer nodes.
+  So h2 is better than h1.
+
+(c)
+
+Part 1: the initial state 41372586 is solvable
+
+Initial score is 8. 
+When a tile moves horizontally, the score is unchanged. Because moving can't change the series order.
+When a tile moves vertically move, the score will +2, -2, +0. Because moving skips two tiles:
+  Assume we move tile X, skipping tile A and tile B.
+  When X < A and X < B, score adds 2.
+  When X > A and X > B, score decreases by 2.
+  When A < X < B or B < X < A, score stays unchanged.
+Our goal is score = 0, so in this situation, we can achieve the goal.
+
+Part 2: the initial state 41372568 is not solvable
+
+According to the part 1 solution, the score of this state is 7.
+It's an odd number and we can't change it to 0.
+So, it's not solvable.
+
+Part 3: Of these 40320 initial states, determine how many are solvable
+
+For any permutation, swapping two numbers will cause the score +1 or -1.
+Every odd series can change to even series through one swap, and vice versa.
+Thus, one odd series vs. one even series.
+Answer = 40320 / 2 = 20160, because half of them have even score.

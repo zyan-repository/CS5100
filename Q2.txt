@@ -1,0 +1,63 @@
+(a)
+Part 1: Explain what "depth-limited search with depth limit 4" means:
+
+With depth limit 4, the search won't explore nodes beyond level 4.
+
+Part 2: List the order of states visited:
+
+1 -> 2 -> 4 -> 8 -> 9 -> 5 -> 10 -> 11
+
+
+Part 3: Explain why regular DFS will never reach goal state 11:
+
+Regular DFS always goes left first: 1 -> 2 -> 4 -> 8 -> 16 -> 32 -> ...
+Since the tree is infinite, it keeps going deeper and never backtracks to the right side where 11 is.
+
+
+(b)
+Part 1: Algorithm description:
+
+Work backwards from n to 1:
+  If n is even: n came from n/2 via Left move
+  If n is odd: n came from (n-1)/2 via Right move
+Repeat until reaching 1, then reverse the sequence.
+
+
+Part 2: Sequence for n = 2024:
+
+2024(L) -> 1012(L) -> 506(L) -> 253(R) -> 126(L) -> 63(R) -> 31(R) -> 15(R) -> 7(R) -> 3(R) -> 1
+
+Reversed path from 1 to 2024:
+
+R -> R -> R -> R -> R -> L -> R -> L -> L -> L
+
+
+Part 3: Time complexity:
+
+O(log n), because we divide by 2 at each step, requiring log(2)(n) iterations.
+
+
+(c)
+
+Part 1: Explain the method:
+
+Convert n to binary, remove the leading 1, then read the remaining bits:
+  0 = Left
+  1 = Right
+
+
+Part 2: Why is this correct:
+
+Starting from root 1:
+  Left move (* 2) appends 0 to binary
+  Right move (* 2 + 1) appends 1 to binary
+So the binary digits after the leading 1 give the path.
+
+
+Part 3: Apply to n = 2024:
+
+2024 in binary = 11111101000
+Remove leading 1: 1111101000
+Convert: R R R R R L R L L L
+
+This matches the sequence from part (b).
